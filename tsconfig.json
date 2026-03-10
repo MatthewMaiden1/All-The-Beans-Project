@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "outDir": "./All-The-Beans.Web/wwwroot/",
+    "strict": true,
+    "module": "esnext",
+    "baseUrl": "UI", 
+    "paths": {
+        "@ts/*": ["ts/*"],
+        "@modules/*": ["ts/modules/*"],
+      },
+    },
+    "include": ["./All-The-Beans.Web/UI/ts/**/*"],
+    "exclude": ["node_modules"]
+}
