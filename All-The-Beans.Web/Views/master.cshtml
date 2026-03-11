@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - All The Beans</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="importmap"></script>
+</head>
+<body class="min-h-screen flex flex-col bg-gray-50 text-gray-900">
+
+    @await Html.PartialAsync("~/Views/Partials/navbar.cshtml")
+
+    <main class="flex-1 px-6 py-8">
+        @RenderBody()
+    </main>
+
+    @await Html.PartialAsync("~/Views/Partials/footer.cshtml")
+
+    <script type="module" src="~/global.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

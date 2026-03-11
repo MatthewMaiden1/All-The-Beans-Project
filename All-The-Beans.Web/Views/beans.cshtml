@@ -1,0 +1,28 @@
+@page
+@{
+    ViewData["Title"] = "Beans";
+
+    var beans = new[]
+    {
+        new { Name = "Espresso Roast",             Origin = "Brazil",   Roast = "Dark",   Notes = "Rich, bold, low acidity" },
+        new { Name = "House Blend",                Origin = "Various",  Roast = "Medium", Notes = "Balanced, smooth, everyday cup" },
+        new { Name = "Single Origin – Ethiopia",   Origin = "Ethiopia", Roast = "Light",  Notes = "Floral, fruity, bright acidity" },
+        new { Name = "Single Origin – Colombia",   Origin = "Colombia", Roast = "Medium", Notes = "Caramel sweetness, mild citrus" },
+        new { Name = "Dark Roast",                 Origin = "Sumatra",  Roast = "Dark",   Notes = "Earthy, full body, smoky finish" },
+        new { Name = "Light Roast",                Origin = "Kenya",    Roast = "Light",  Notes = "Tea-like, berry notes, high acidity" },
+        new { Name = "Decaf",                      Origin = "Peru",     Roast = "Medium", Notes = "Mellow, nutty, no caffeine" },
+    };
+}
+
+<h1 class="text-3xl font-bold mb-8">List of Beans</h1>
+
+<ul class="flex flex-col gap-4">
+    @foreach (var bean in beans)
+    {
+        <li class="flex flex-col gap-1 border border-gray-200 rounded p-4 bg-white">
+            <span class="text-lg font-semibold">@bean.Name</span>
+            <span class="text-sm text-gray-500">Origin: @bean.Origin &middot; Roast: @bean.Roast</span>
+            <span class="text-sm text-gray-700">@bean.Notes</span>
+        </li>
+    }
+</ul>
