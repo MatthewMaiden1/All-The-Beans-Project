@@ -23,50 +23,46 @@ export class FormValidator {
         this.config = config;
     }
 
-    // --- Static rule factories ---
-
     static required(label: string): ValidationRule {
         return {
-            validate: (v) => v.trim().length > 0,
+            validate: (value) => value.trim().length > 0,
             message: `${label} is required`,
         };
     }
 
     static minLength(n: number): ValidationRule {
         return {
-            validate: (v) => v.trim().length >= n,
+            validate: (value) => value.trim().length >= n,
             message: `Must be at least ${n} characters`,
         };
     }
 
     static readonly email: ValidationRule = {
-        validate: (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()),
+        validate: (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim()),
         message: 'Enter a valid email address',
     };
 
     static readonly phone: ValidationRule = {
-        validate: (v) =>
+        validate: (value) =>
             /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/.test(
-                v.trim().replace(/\s/g, '')
+                value.trim().replace(/\s/g, '')
             ),
         message: 'Enter a valid phone number',
     };
-
-    // --- Validation engine ---
 
     validate(): ValidationResult {
         const errors: Record<string, string> = {};
 
         for (const [fieldName, { rules }] of Object.entries(this.config)) {
-            const el = this.form.elements.namedItem(fieldName) as
+            const fieldElement = this.form.elements.namedItem(fieldName) as
                 | HTMLInputElement
                 | HTMLSelectElement
                 | null;
 
-            if (!el) continue;
+            if (!fieldElement) continue;
 
             for (const rule of rules) {
-                if (!rule.validate(el.value)) {
+                if (!rule.validate(fieldElement.value)) {
                     errors[fieldName] = rule.message;
                     break;
                 }
@@ -75,8 +71,6 @@ export class FormValidator {
 
         return { valid: Object.keys(errors).length === 0, errors };
     }
-
-    // --- UI helpers ---
 
     showErrors(errors: Record<string, string>): void {
         this.clearErrors();
@@ -98,12 +92,10 @@ export class FormValidator {
             error.textContent = '';
             error.hidden = true;
         });
-        this.form.querySelectorAll('[data-field]').forEach((el) =>
-            el.classList.remove('border-red-500')
+        this.form.querySelectorAll('[data-field]').forEach((fieldInput) =>
+            fieldInput.classList.remove('border-red-500')
         );
     }
-
-    // --- Submit binding ---
 
     bindSubmit(onValid: (form: HTMLFormElement) => void): void {
         this.form.addEventListener('submit', (e) => {

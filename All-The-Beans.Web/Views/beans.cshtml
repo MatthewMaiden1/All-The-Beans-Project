@@ -16,10 +16,12 @@
 
 <h1 class="text-3xl font-bold mb-8">List of Beans</h1>
 
-<ul class="flex flex-col gap-4">
+@await Html.PartialAsync("~/Views/Partials/searchBar.cshtml")
+
+<ul data-bean-list class="flex flex-col gap-4">
     @foreach (var bean in beans)
     {
-        <li class="flex flex-col gap-1 border border-gray-200 rounded p-4 bg-white">
+        <li data-bean-item class="flex flex-col gap-1 border border-gray-200 rounded p-4 bg-white">
             <span class="text-lg font-semibold">@bean.Name</span>
             <span class="text-sm text-gray-500">Origin: @bean.Origin &middot; Roast: @bean.Roast</span>
             <span class="text-sm text-gray-700">@bean.Notes</span>

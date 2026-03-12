@@ -1,4 +1,6 @@
 import { FormValidator } from './modules/formValidation.js';
+import { BeanSearch } from './modules/beanSearch.js';
+
 
 const orderForm = document.querySelector<HTMLFormElement>('[data-form="order"]');
 
@@ -12,8 +14,10 @@ if (orderForm) {
         quantity:  { rules: [FormValidator.required('Quantity')] },
         grind:     { rules: [FormValidator.required('Grind preference')] },
     });
-
+    
     validator.bindSubmit((form) => {
         form.submit();
     });
 }
+
+new BeanSearch();
