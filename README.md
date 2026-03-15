@@ -19,7 +19,11 @@
     ```bash
     npm install
     ```
-2. Run the environment
+2. Navigate to .Web:
+    ```bash
+    cd All-The-Beans.Web
+    ```
+3. Run the environment:
     ```bash
     dotnet run
     npm run build
