@@ -1,40 +1,40 @@
-<form method="post" data-form="order" class="flex flex-col gap-4 max-w-md">
+<form method="post" data-form="order" class="flex flex-col gap-4 w-full max-w-md">
     @Html.AntiForgeryToken()
 
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div class="flex flex-col gap-1">
-            <label for="firstName" class="text-sm font-medium text-gray-700">First Name</label>
+            <label for="firstName" class="text-sm font-medium text-stone-700">First Name</label>
             <input type="text" id="firstName" name="firstName" data-field
-                   class="border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400" />
+                   class="border border-stone-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
             <span data-error="firstName" class="text-xs text-red-500" hidden></span>
         </div>
 
         <div class="flex flex-col gap-1">
-            <label for="lastName" class="text-sm font-medium text-gray-700">Last Name</label>
+            <label for="lastName" class="text-sm font-medium text-stone-700">Last Name</label>
             <input type="text" id="lastName" name="lastName" data-field
-                   class="border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400" />
+                   class="border border-stone-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
             <span data-error="lastName" class="text-xs text-red-500" hidden></span>
         </div>
     </div>
 
     <div class="flex flex-col gap-1">
-        <label for="email" class="text-sm font-medium text-gray-700">Email</label>
+        <label for="email" class="text-sm font-medium text-stone-700">Email</label>
         <input type="email" id="email" name="email" data-field
-               class="border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400" />
+               class="border border-stone-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
         <span data-error="email" class="text-xs text-red-500" hidden></span>
     </div>
 
     <div class="flex flex-col gap-1">
-        <label for="phone" class="text-sm font-medium text-gray-700">Phone Number</label>
+        <label for="phone" class="text-sm font-medium text-stone-700">Phone Number</label>
         <input type="tel" id="phone" name="phone" data-field
-               class="border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400" />
+               class="border border-stone-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
         <span data-error="phone" class="text-xs text-red-500" hidden></span>
     </div>
 
     <div class="flex flex-col gap-1">
-        <label for="beanType" class="text-sm font-medium text-gray-700">Select Your Bean</label>
+        <label for="beanType" class="text-sm font-medium text-stone-700">Select Your Bean</label>
         <select id="beanType" name="beanType" data-field
-                class="border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-400">
+                class="border border-stone-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400">
             <option value="">-- Choose a bean --</option>
             <option value="espresso">Espresso Roast</option>
             <option value="house-blend">House Blend</option>
@@ -48,7 +48,7 @@
     </div>
 
     <div class="flex flex-col gap-1">
-        <label for="quantity" class="text-sm font-medium text-gray-700">Quantity (bags)</label>
+        <label for="quantity" class="text-sm font-medium text-stone-700">Quantity (bags)</label>
         <input type="number" id="quantity" name="quantity" min="1" max="99" value="1" data-field
                class="border border-gray-300 rounded px-3 py-2 text-sm w-24 focus:outline-none focus:ring-2 focus:ring-gray-400" />
         <span data-error="quantity" class="text-xs text-red-500" hidden></span>
@@ -58,7 +58,7 @@
         <input type="text" tabindex="-1" autocomplete="off" />
     </div>
 
-    <button type="submit" class="mt-2 bg-gray-900 text-white text-sm font-medium px-4 py-2 rounded hover:bg-gray-700 transition-colors">
+    <button type="submit" class="mt-2 bg-amber-800 text-white text-sm font-medium px-4 py-2 rounded hover:bg-amber-900 transition-colors">
         Order Now
     </button>
 </form>

@@ -7,12 +7,14 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script type="importmap"></script>
 </head>
-<body class="min-h-screen flex flex-col bg-gray-50 text-gray-900">
+<body class="min-h-screen flex flex-col bg-stone-50 text-stone-900">
 
     @await Html.PartialAsync("~/Views/Partials/navbar.cshtml")
 
-    <main class="flex-1 px-6 py-8">
-        @RenderBody()
+    <main class="flex-1 px-4 py-6 md:px-6 md:py-10 flex justify-center">
+        <div class="w-full max-w-4xl">
+            @RenderBody()
+        </div>
     </main>
 
     @await Html.PartialAsync("~/Views/Partials/footer.cshtml")

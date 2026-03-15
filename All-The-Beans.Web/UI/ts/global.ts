@@ -1,5 +1,6 @@
 import { FormValidator } from './modules/formValidation.js';
 import { BeanSearch } from './modules/beanSearch.js';
+import { NavMenu } from './modules/navMenu.js';
 
 
 const orderForm = document.querySelector<HTMLFormElement>('[data-form="order"]');
@@ -21,3 +22,4 @@ if (orderForm) {
 }
 
 new BeanSearch();
+new NavMenu();

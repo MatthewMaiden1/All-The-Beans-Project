@@ -14,17 +14,21 @@
     };
 }
 
-<h1 class="text-3xl font-bold mb-8">List of Beans</h1>
+<div class="flex flex-col gap-6">
+    <h1 class="text-3xl font-bold text-stone-900">Our Beans</h1>
 
-@await Html.PartialAsync("~/Views/Partials/searchBar.cshtml")
+    @await Html.PartialAsync("~/Views/Partials/searchBar.cshtml")
 
-<ul data-bean-list class="flex flex-col gap-4">
-    @foreach (var bean in beans)
-    {
-        <li data-bean-item class="flex flex-col gap-1 border border-gray-200 rounded p-4 bg-white">
-            <span class="text-lg font-semibold">@bean.Name</span>
-            <span class="text-sm text-gray-500">Origin: @bean.Origin &middot; Roast: @bean.Roast</span>
-            <span class="text-sm text-gray-700">@bean.Notes</span>
-        </li>
-    }
-</ul>
+    <ul data-bean-list class="flex flex-col gap-3">
+        @foreach (var bean in beans)
+        {
+            <li data-bean-item class="flex items-center justify-between border border-stone-200 rounded-lg px-5 py-4 bg-white hover:border-amber-400 hover:bg-amber-50 transition-colors cursor-pointer">
+                <div class="flex flex-col gap-1">
+                    <span class="text-base font-semibold text-stone-900">@bean.Name</span>
+                    <span class="text-sm text-stone-500">@bean.Origin &middot; @bean.Roast roast</span>
+                </div>
+                <span class="hidden sm:block text-sm text-stone-400 italic">@bean.Notes</span>
+            </li>
+        }
+    </ul>
+</div>

@@ -18,20 +18,25 @@
 
 @if (bean.IsBOTD)
 {
-    <div class="max-w-2xl flex flex-col gap-6">
-        <h1 class="text-3xl font-bold">Bean of the Day</h1>
+    <div class="flex flex-col gap-6">
+        <h1 class="text-3xl font-bold text-stone-900">Bean of the Day</h1>
 
-        <img src="@bean.Image" alt="@bean.Name" class="w-full rounded object-cover h-64" />
+        <div class="flex flex-col md:flex-row gap-6 md:gap-8 items-start bg-white border border-stone-200 rounded-xl p-4 md:p-6">
+            <img src="@bean.Image" alt="@bean.Name" class="w-full md:w-1/2 rounded-lg object-cover" />
 
-        <div class="flex flex-col gap-2">
-            <h2 class="text-2xl font-semibold">@bean.Name</h2>
-            <span class="text-sm text-gray-500">@bean.Country &middot; @bean.Colour</span>
-            <span class="text-lg font-medium">@bean.Cost</span>
-            <p class="text-sm text-gray-700 leading-relaxed">@bean.Description</p>
+            <div class="flex flex-col gap-3 flex-1">
+                <h2 class="text-2xl font-bold text-stone-900">@bean.Name</h2>
+                <div class="flex gap-2">
+                    <span class="text-xs font-medium bg-amber-100 text-amber-800 px-2 py-1 rounded">@bean.Country</span>
+                    <span class="text-xs font-medium bg-stone-100 text-stone-700 px-2 py-1 rounded">@bean.Colour</span>
+                </div>
+                <span class="text-xl font-semibold text-amber-700">@bean.Cost</span>
+                <p class="text-sm text-stone-600 leading-relaxed">@bean.Description</p>
+            </div>
         </div>
     </div>
 }
 else
 {
-    <p class="text-gray-500">No bean of the day selected.</p>
+    <p class="text-stone-500">No bean of the day selected.</p>
 }

@@ -1,14 +1,26 @@
-<nav class="flex items-center justify-between px-6 py-4 bg-white shadow-sm">
-    <a href="/" class="text-xl font-bold text-gray-900">All The Beans</a>
-    <ul class="flex gap-6">
-        <li>
-            <a asp-page="/Index" class="text-sm text-gray-600 hover:text-gray-900 transition-colors">Home</a>
-        </li>
-        <li>
-            <a asp-page="/Beans" class="text-sm text-gray-600 hover:text-gray-900 transition-colors">Beans</a>
-        </li>
-        <li>
-            <a asp-page="/BeanOfTheDay" class="text-sm text-gray-600 hover:text-gray-900 transition-colors">Bean of the Day</a>
-        </li>
+<nav class="bg-stone-800 shadow-md">
+    <div class="flex items-center justify-between px-4 md:px-6 py-4">
+        <a href="/" class="text-xl font-bold text-amber-100 tracking-wide">All The Beans</a>
+
+        <button data-nav-toggle class="md:hidden flex flex-col gap-1.5 p-1 text-stone-300 hover:text-amber-200 transition-colors">
+            <svg data-nav-icon-open xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+            <svg data-nav-icon-close xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+
+        <ul class="hidden md:flex gap-6">
+            <li><a asp-page="/Index" class="text-sm text-stone-300 hover:text-amber-200 transition-colors">Home</a></li>
+            <li><a asp-page="/Beans" class="text-sm text-stone-300 hover:text-amber-200 transition-colors">Beans</a></li>
+            <li><a asp-page="/BeanOfTheDay" class="text-sm text-stone-300 hover:text-amber-200 transition-colors">Bean of the Day</a></li>
+        </ul>
+    </div>
+
+    <ul data-nav-menu class="hidden flex-col border-t border-stone-700 md:hidden">
+        <li><a asp-page="/Index" class="block px-4 py-3 text-sm text-stone-300 hover:text-amber-200 hover:bg-stone-700 transition-colors">Home</a></li>
+        <li><a asp-page="/Beans" class="block px-4 py-3 text-sm text-stone-300 hover:text-amber-200 hover:bg-stone-700 transition-colors">Beans</a></li>
+        <li><a asp-page="/BeanOfTheDay" class="block px-4 py-3 text-sm text-stone-300 hover:text-amber-200 hover:bg-stone-700 transition-colors">Bean of the Day</a></li>
     </ul>
 </nav>
