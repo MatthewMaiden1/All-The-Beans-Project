@@ -1,8 +1,8 @@
 export class NavMenu {
-    private readonly toggleButton: HTMLButtonElement;
-    private readonly mobileMenu: HTMLElement;
-    private readonly openIcon: HTMLElement;
-    private readonly closeIcon: HTMLElement;
+    private readonly toggleButton!: HTMLButtonElement;
+    private readonly mobileMenu!: HTMLElement;
+    private readonly openIcon!: HTMLElement;
+    private readonly closeIcon!: HTMLElement;
     private isOpen: boolean = false;
 
     constructor() {

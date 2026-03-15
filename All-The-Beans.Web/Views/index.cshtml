@@ -20,19 +20,14 @@
         <p class="text-stone-500">Specialty coffee beans, sourced from around the world.</p>
     </div>
 
-<<<<<<< HEAD
-    @await Html.PartialAsync("~/Views/Partials/orderForm.cshtml")
-</div>
-=======
+
 @if (beanOfTheDay is not null)
 {
-    <p class="text-sm text-gray-600">
-        Today's bean of the day is
-        <a href="/beanoftheday"
-           class="font-semibold text-gray-900 underline hover:text-gray-600">
-            @beanOfTheDay.Name
-        </a>
-    </p>
+    <a href="/beanoftheday" class="flex flex-col items-center gap-2 bg-amber-50 border border-amber-200 rounded-xl px-6 py-8 text-center hover:bg-amber-100 hover:border-amber-400 transition-colors">
+        <span class="text-xs font-semibold uppercase tracking-widest text-amber-600">Bean of the Day</span>
+        <span class="text-3xl font-bold text-stone-900">@beanOfTheDay.Name</span>
+        <span class="text-sm text-stone-500">@beanOfTheDay.Country &middot; @beanOfTheDay.Colour &middot; @beanOfTheDay.Cost</span>
+    </a>
 }
 
 @await Html.PartialAsync("~/Views/Partials/orderForm.cshtml", new ViewDataDictionary(ViewData)
@@ -40,4 +35,3 @@
     { "beanOptions", beanOptions },
     { "beanCosts",   beanCosts   }
 })
->>>>>>> 933bfe16974ee19fa70a2a9f28f0b1cba25b3ebd

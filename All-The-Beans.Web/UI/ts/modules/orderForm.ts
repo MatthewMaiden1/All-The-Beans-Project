@@ -34,6 +34,7 @@ export class OrderForm {
             lastName:  { rules: [OrderForm.required('Last name'),  OrderForm.minLength(2)] },
             email:     { rules: [OrderForm.required('Email'),      OrderForm.email] },
             phone:     { rules: [OrderForm.required('Phone'),      OrderForm.phone] },
+            address:   { rules: [OrderForm.required('Address'), OrderForm.minLength(5)] },
             beanType:  { rules: [OrderForm.required('Bean selection')] },
             quantity:  { rules: [OrderForm.required('Quantity')] },
         };

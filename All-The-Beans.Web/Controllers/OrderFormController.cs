@@ -19,7 +19,7 @@ public class OrderFormController : Controller
     public IActionResult Submit([FromForm] OrderFormModel model)
     {
         if (!string.IsNullOrEmpty(model.Website))
-            return Ok(new { success = true, redirectUrl = "/order/success" });
+            return BadRequest(new { success = false });
 
         var result = _formService.ValidateOrderForm(model);
 

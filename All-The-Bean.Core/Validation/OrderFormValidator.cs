@@ -19,6 +19,7 @@ public static class OrderFormValidator
         ValidateLastName(model.LastName, result);
         ValidateEmail(model.Email, result);
         ValidatePhone(model.Phone, result);
+        ValidateAddress(model.Address, result);
         ValidateBeanType(model.BeanType, result);
         ValidateQuantity(model.Quantity, result);
 
@@ -55,6 +56,14 @@ public static class OrderFormValidator
             result.AddError("phone", "Phone number is required");
         else if (!PhonePattern.IsMatch(value.Trim().Replace(" ", "")))
             result.AddError("phone", "Enter a valid phone number");
+    }
+
+    private static void ValidateAddress(string value, FormValidationResult result)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            result.AddError("address", "Address is required");
+        else if (value.Trim().Length < 5)
+            result.AddError("address", "Enter a valid address");
     }
 
     private static void ValidateBeanType(string value, FormValidationResult result)
