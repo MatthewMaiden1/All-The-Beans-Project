@@ -1,8 +1,34 @@
 @page
+@inject IWebHostEnvironment Env
+@using System.Text.Json
+@using AllTheBean.Core.Models
 @{
     ViewData["Title"] = "Home";
+
+    var json = System.IO.File.ReadAllText(System.IO.Path.Combine(Env.ContentRootPath, "Data", "allthebeans.json"));
+    var allBeans    = JsonSerializer.Deserialize<List<Bean>>(json)!
+        .Select(BeanViewModel.FromBean)
+        .ToList();
+    var beanOptions  = allBeans.Select(b => b.Name).ToList();
+    var beanCosts    = allBeans.ToDictionary(b => b.Name, b => b.Cost);
+    var beanOfTheDay = allBeans.FirstOrDefault(b => b.IsBeanOfTheDay);
 }
 
 <h1>All The Beans</h1>
 
-@await Html.PartialAsync("~/Views/Partials/orderForm.cshtml")
+@if (beanOfTheDay is not null)
+{
+    <p class="text-sm text-gray-600">
+        Today's bean of the day is
+        <a href="/beanoftheday"
+           class="font-semibold text-gray-900 underline hover:text-gray-600">
+            @beanOfTheDay.Name
+        </a>
+    </p>
+}
+
+@await Html.PartialAsync("~/Views/Partials/orderForm.cshtml", new ViewDataDictionary(ViewData)
+{
+    { "beanOptions", beanOptions },
+    { "beanCosts",   beanCosts   }
+})
