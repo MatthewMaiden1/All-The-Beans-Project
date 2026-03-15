@@ -1,22 +1,18 @@
 @page
+@inject IWebHostEnvironment Env
+@using System.Text.Json
+@using AllTheBean.Core.Models
 @{
     ViewData["Title"] = "Bean of the Day";
 
-    var bean = new
-    {
-        Id          = "66a374596122a40616cb8599",
-        Index       = 0,
-        IsBOTD      = true,
-        Cost        = "£39.26",
-        Image       = "https://images.unsplash.com/photo-1672306319681-7b6d7ef349cf",
-        Colour      = "Dark Roast",
-        Name        = "TURNABOUT",
-        Description = "Ipsum cupidatat nisi do elit veniam Lorem magna. Ullamco qui exercitation fugiat pariatur sunt dolore Lorem magna magna pariatur minim. Officia amet incididunt ad proident. Dolore est irure ex fugiat. Voluptate sunt qui ut irure commodo excepteur enim labore incididunt quis duis. Velit anim amet tempor ut labore sint deserunt.",
-        Country     = "Peru",
-    };
+    var json = System.IO.File.ReadAllText(System.IO.Path.Combine(Env.ContentRootPath, "Data", "allthebeans.json"));
+    var bean = JsonSerializer.Deserialize<List<Bean>>(json)!
+        .Where(b => b.IsBOTD)
+        .Select(BeanViewModel.FromBean)
+        .FirstOrDefault();
 }
 
-@if (bean.IsBOTD)
+@if (bean is not null)
 {
     <div class="flex flex-col gap-6">
         <h1 class="text-3xl font-bold text-stone-900">Bean of the Day</h1>

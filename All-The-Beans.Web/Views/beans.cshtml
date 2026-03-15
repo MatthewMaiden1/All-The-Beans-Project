@@ -1,34 +1,65 @@
 @page
+@inject IWebHostEnvironment Env
+@using System.Text.Json
+@using AllTheBean.Core.Models
 @{
-    ViewData["Title"] = "Beans";
+    var json = System.IO.File.ReadAllText(System.IO.Path.Combine(Env.ContentRootPath, "Data", "allthebeans.json"));
+    var beans = JsonSerializer.Deserialize<List<Bean>>(json)!
+        .Select(BeanViewModel.FromBean)
+        .ToList();
 
-    var beans = new[]
-    {
-        new { Name = "Espresso Roast",             Origin = "Brazil",   Roast = "Dark",   Notes = "Rich, bold, low acidity" },
-        new { Name = "House Blend",                Origin = "Various",  Roast = "Medium", Notes = "Balanced, smooth, everyday cup" },
-        new { Name = "Single Origin – Ethiopia",   Origin = "Ethiopia", Roast = "Light",  Notes = "Floral, fruity, bright acidity" },
-        new { Name = "Single Origin – Colombia",   Origin = "Colombia", Roast = "Medium", Notes = "Caramel sweetness, mild citrus" },
-        new { Name = "Dark Roast",                 Origin = "Sumatra",  Roast = "Dark",   Notes = "Earthy, full body, smoky finish" },
-        new { Name = "Light Roast",                Origin = "Kenya",    Roast = "Light",  Notes = "Tea-like, berry notes, high acidity" },
-        new { Name = "Decaf",                      Origin = "Peru",     Roast = "Medium", Notes = "Mellow, nutty, no caffeine" },
-    };
+    var selectedBeanName = Request.Query["bean"].ToString();
+    var selectedBean = beans.FirstOrDefault(b =>
+        string.Equals(b.Name, selectedBeanName, StringComparison.OrdinalIgnoreCase));
+
+    ViewData["Title"] = selectedBean is not null ? selectedBean.Name : "Beans";
 }
 
-<div class="flex flex-col gap-6">
+@if (selectedBean is not null)
+{
+    <div class="max-w-2xl flex flex-col gap-8">
+        <a href="/beans" class="text-sm text-gray-500 hover:text-gray-800">&larr; Back to all beans</a>
+
+        <div class="flex flex-col gap-4">
+            <img src="@selectedBean.Image" alt="@selectedBean.Name" class="w-full rounded object-cover h-64" />
+
+            <div class="flex flex-col gap-2">
+                <h1 class="text-3xl font-bold">@selectedBean.Name</h1>
+                <span class="text-sm text-gray-500">@selectedBean.Country &middot; @selectedBean.Colour</span>
+                <span class="text-lg font-medium">@selectedBean.Cost</span>
+                <p class="text-sm text-gray-700 leading-relaxed">@selectedBean.Description</p>
+            </div>
+        </div>
+
+        <div class="flex flex-col gap-4">
+            <h2 class="text-xl font-semibold">Order this bean</h2>
+            @await Html.PartialAsync("~/Views/Partials/orderForm.cshtml", new ViewDataDictionary(ViewData)
+            {
+                { "selectedBean", selectedBean.Name },
+                { "beanOptions",  beans.Select(b => b.Name).ToList() },
+                { "beanCosts",    beans.ToDictionary(b => b.Name, b => b.Cost) }
+            })
+        </div>
+    </div>
+}
+else
+{
+    <div class="flex flex-col gap-6">
     <h1 class="text-3xl font-bold text-stone-900">Our Beans</h1>
 
     @await Html.PartialAsync("~/Views/Partials/searchBar.cshtml")
 
-    <ul data-bean-list class="flex flex-col gap-3">
+    <ul data-bean-list class="flex flex-col gap-4">
         @foreach (var bean in beans)
         {
-            <li data-bean-item class="flex items-center justify-between border border-stone-200 rounded-lg px-5 py-4 bg-white hover:border-amber-400 hover:bg-amber-50 transition-colors cursor-pointer">
-                <div class="flex flex-col gap-1">
-                    <span class="text-base font-semibold text-stone-900">@bean.Name</span>
-                    <span class="text-sm text-stone-500">@bean.Origin &middot; @bean.Roast roast</span>
-                </div>
-                <span class="hidden sm:block text-sm text-stone-400 italic">@bean.Notes</span>
+            <li data-bean-item>
+                <a href="/beans?bean=@Uri.EscapeDataString(bean.Name)"
+                   class="flex flex-col gap-1 border border-gray-200 rounded p-4 bg-white hover:border-gray-400 hover:bg-gray-50 transition-colors">
+                    <span class="text-lg font-semibold">@bean.Name</span>
+                    <span class="text-sm text-gray-500">@bean.Country &middot; @bean.Colour</span>
+                    <span class="text-sm font-medium">@bean.Cost</span>
+                </a>
             </li>
         }
     </ul>
-</div>
+}

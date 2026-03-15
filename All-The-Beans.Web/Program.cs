@@ -5,6 +5,8 @@ builder.Services.AddRazorPages().AddRazorPagesOptions(options =>
 {
     options.RootDirectory = "/Views";
 });
+builder.Services.AddControllers();
+builder.Services.AddScoped<AllTheBean.Core.Services.IFormService, AllTheBean.Core.Services.FormService>();
 
 var app = builder.Build();
 
@@ -16,6 +18,8 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseStatusCodePagesWithReExecute("/404");
+
 app.UseHttpsRedirection();
 
 app.UseRouting();
@@ -25,5 +29,6 @@ app.UseAuthorization();
 app.MapStaticAssets();
 app.MapRazorPages()
    .WithStaticAssets();
+app.MapControllers();
 
 app.Run();

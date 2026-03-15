@@ -7,4 +7,8 @@
     <RootNamespace>All_The_Beans_Project</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\All-The-Bean.Core\All-The-Bean.Core.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,4 +1,16 @@
-<form method="post" data-form="order" class="flex flex-col gap-4 w-full max-w-md">
+@using System.Text.Json
+@{
+    var selectedBean = ViewData["selectedBean"] as string ?? "";
+    var beanOptions  = ViewData["beanOptions"] as List<string>;
+    var beanCosts    = ViewData["beanCosts"] as Dictionary<string, string>;
+    var beanCostsJson = beanCosts is not null
+        ? JsonSerializer.Serialize(beanCosts)
+        : "{}";
+}
+
+<form method="post" action="/order/submit" data-form="order"
+      data-bean-costs="@beanCostsJson"
+      class="flex flex-col gap-4 w-full max-w-md">
     @Html.AntiForgeryToken()
 
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -36,13 +48,13 @@
         <select id="beanType" name="beanType" data-field
                 class="border border-stone-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-amber-400">
             <option value="">-- Choose a bean --</option>
-            <option value="espresso">Espresso Roast</option>
-            <option value="house-blend">House Blend</option>
-            <option value="single-origin-ethiopia">Single Origin – Ethiopia</option>
-            <option value="single-origin-colombia">Single Origin – Colombia</option>
-            <option value="dark-roast">Dark Roast</option>
-            <option value="light-roast">Light Roast</option>
-            <option value="decaf">Decaf</option>
+            @if (beanOptions is not null)
+            {
+                @foreach (var option in beanOptions)
+                {
+                    <option value="@option" selected="@(option == selectedBean ? "selected" : null)">@option</option>
+                }
+            }
         </select>
         <span data-error="beanType" class="text-xs text-red-500" hidden></span>
     </div>
@@ -54,12 +66,13 @@
         <span data-error="quantity" class="text-xs text-red-500" hidden></span>
     </div>
 
+    <p data-price-display hidden class="text-base font-semibold text-gray-900"></p>
+
     <div style="display:none" aria-hidden="true">
-        <input type="text" tabindex="-1" autocomplete="off" />
+        <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
     </div>
 
     <button type="submit" class="mt-2 bg-amber-800 text-white text-sm font-medium px-4 py-2 rounded hover:bg-amber-900 transition-colors">
         Order Now
     </button>
 </form>
-
